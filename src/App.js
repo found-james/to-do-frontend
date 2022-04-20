@@ -1,11 +1,28 @@
 
 import { toDoListData } from "./components/data.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useBeforeunload } from 'react-beforeunload';
+import axios from "axios";
 import "./style.css";
 
 function App() {
   const [todoList, setTodoList] = useState(toDoListData);
   const [input, setInput] = useState("");
+
+  const apiCall = async () => {
+    try{
+      const res = await axios.get("https://shielded-garden-84019.herokuapp.com/todo");
+
+      setTodoList([...todoList, ...res.data]);
+
+      
+    } catch (err){
+      res.status(200).json({message: err.message});
+    }
+}
+  useEffect( () => {
+      apiCall();
+    }, []);
   
   const handleChange = e => {
     setInput(e.target.value)
@@ -26,9 +43,15 @@ function App() {
 
   }
 
+  // alert before closing browser
+  // on confirm 
+  // 
   const removeItem = () => {
 
+    
+      setState
   }
+
   const displayList = (item, idx) => {
     return (
       <>
