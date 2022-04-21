@@ -9,11 +9,11 @@ function App() {
   const [todoList, setTodoList] = useState(toDoListData);
   const [input, setInput] = useState("");
 
-  const apiCall = async () => {
+  const apiCall = async (req, res) => {
     try{
       const res = await axios.get("https://shielded-garden-84019.herokuapp.com/todo");
 
-      setTodoList([...todoList, ...res.data]);
+      await setTodoList([...todoList, ...res.data]);
 
       
     } catch (err){
@@ -49,7 +49,7 @@ function App() {
   const removeItem = () => {
 
     
-      setState
+  
   }
 
   const displayList = (item, idx) => {
